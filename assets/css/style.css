@@ -1,0 +1,158 @@
+/**
+ * Body / Defaults
+ */
+body {
+  background-color: #fff;
+  /*background-color: #f9f9f9;*/
+}
+  body.shows--grid { background-color: #333; }
+  body.shows--list { background-color: #fff; }
+
+#wrap {
+  position: relative;
+  margin-top: 90px;
+}
+
+
+/**
+ * Views / Router
+ */
+.view {
+  display: none;
+}
+
+
+
+
+/**
+ * Bootstrap Overrides
+ */
+.navbar {
+  margin:0;
+}
+.row-padded { margin-bottom: 30px; }
+.m0 { margin:0; }
+.small-right {
+  float:right;
+  padding-top: 5px;
+}
+.anchor-block {
+  display:block;
+  padding-top: 5px;
+}
+.label-large {
+  font-size:12px;
+}
+.label-icon {
+  /*font-size:10px;*/
+}
+.label .glyphicon {
+  position: relative;
+  top: 2px;
+}
+.text-left { text-align: left !important; }
+
+.col-inner {
+  border: 1px solid #eee;
+  width:100%;
+  margin-bottom: 15px;
+}
+.col-header {
+  background-color:#fbfbfb;
+  padding:15px;
+  border-bottom: 1px solid #eee;
+  font-size: 24px;
+  font-weight: 500;
+}
+.col-content {
+  padding: 15px;
+  min-height: 80px;
+}
+
+
+.navbar-logo-icon {
+  position: relative;
+  display:inline-block;
+  background-image: url('../images/favicon.png');
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 22px;
+  background-size: 100% auto;
+  background-position: 50% 50%;
+  float: left;
+  margin-right: 8px;
+  top: -3px;
+}
+
+.list-blank {
+  list-style-type: none;
+  margin: 10px 0;
+  padding:0;
+}
+.list-blank li {
+  margin:0 0 7px 0;
+}
+
+.pre-scroll {
+  max-height:300px;
+  overflow:scroll;
+}
+
+
+.hero {
+  position: relative;
+  display:inline-block;
+  cursor: pointer;
+  z-index:1;
+  width: 65px;
+  height: 65px;
+  background-color: #e1e1e1;
+  border: 1px solid #333;
+  margin:3px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+  .hero-inner {
+    position: absolute;
+    top:0;left:0;
+    z-index:2;
+  }
+
+
+/**
+ * Helpers
+ */
+.flex-columns {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+  .flex-column {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .flex-column--half {
+    width:49%;
+  }
+
+
+.clearfix:after {
+  display:table;
+  clear:both;
+  height:0;
+  width:0;
+  content:'';
+}
+
+
+/**
+ * Custom Attributes
+ */
+*[debug] {
+  display:none !important;
+}

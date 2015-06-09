@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HotS Tier List Maker</title>
+
+  <!-- Favicon(s) -->
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/favicon.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/favicon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/favicon.png">
+  
+  <!-- CDN Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <!-- Vendor Styles -->  
+  <link rel="stylesheet" href="assets/css/lib/dragula.css">
+
+  <!-- APP Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/loader.css">
+
+</head>
+<body>
+  
+
+<div id="shows__header" class="shows__header navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#home">
+        <i class="navbar-logo-icon"></i>
+        <span>HotS Tier List Maker</span>
+      </a>
+    </div>
+
+
+    <div id="nav--main" class="nav navbar-nav">
+
+      <li><a href="#home">Home</a></li>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="loader" style="display:none;">
+  <div class="buffer">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div id="wrap">
+  
+  <!-- GET / -->
+  <div id="view--index" class="view">
+    <div class="container">
+      <div class="row row-padded">
+        
+
+
+        <div class="col-sm-6">
+          <div class="col-inner sticky">
+            
+            <header class="col-header">
+              <h3 class="m0">Heroes <small id="hero-count" class="small-right"></small></h3>
+            </header>
+
+            <div id="heroes" class="col-content" class="clearfix">
+              
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="col-sm-6">
+          
+          <div class="col-inner">
+            <header class="col-header">
+              <h3 class="m0">Tier 1</h3>
+            </header>
+            <div class="col-content tier" id="tier1">
+              
+            </div>
+          </div>
+
+
+          <div class="col-inner">
+            <header class="col-header">
+              <h3 class="m0">Tier 2</h3>
+            </header>
+            <div class="col-content tier" id="tier2">
+              
+            </div>
+          </div>
+
+          <div class="col-inner">
+            <header class="col-header">
+              <h3 class="m0">Tier 3</h3>
+            </header>
+            <div class="col-content tier" id="tier3">
+              
+            </div>
+          </div>
+
+          <div class="col-inner">
+            <header class="col-header">
+              <h3 class="m0">Tier 4</h3>
+            </header>
+            <div class="col-content tier" id="tier4">
+              
+            </div>
+          </div>
+
+          <div class="col-inner">
+            <header class="col-header">
+              <h3 class="m0">Tier 5</h3>
+            </header>
+            <div class="col-content tier" id="tier5">
+              
+            </div>
+          </div>
+
+        </div>
+
+
+      </div><!-- .row -->
+
+
+</div>
+
+
+
+
+<!-- Javascript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="assets/js/lib/routie.js"></script>
+<script src="assets/js/lib/dragula.min.js"></script>
+<script src="assets/js/lib/jquery.sticky.js"></script>
+<script src="assets/js/lib/storage.js"></script>
+
+<script src="assets/js/app.js"></script>
+
+
+</body>
+</html>
