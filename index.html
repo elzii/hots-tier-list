@@ -18,6 +18,7 @@
   
   <!-- Vendor Styles -->  
   <link rel="stylesheet" href="assets/css/lib/dragula.css">
+  <link rel="stylesheet" href="assets/css/lib/simptip.css">
 
   <!-- APP Styles -->
   <link rel="stylesheet" href="assets/css/style.css">
@@ -30,17 +31,23 @@
 <div id="shows__header" class="shows__header navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#home">
-        <i class="navbar-logo-icon"></i>
+      <a class="navbar-brand" href="/">
+        <i class="fa fa-list-ol"></i>
         <span>HotS Tier List Maker</span>
       </a>
     </div>
 
 
-    <div id="nav--main" class="nav navbar-nav">
+    <div id="nav--main" class="nav navbar-nav" style="display:none">
 
-      <li><a href="#home">Home</a></li>
+      <li><a href="#tierlist">Home</a></li>
 
+    </div>
+
+    <div id="nav--actions" class="nav navbar-nav navbar-right">
+      
+      <button id="save" class="btn btn-success">Save</button>
+      <button id="delete" class="btn btn-danger">Reset</button>
     </div>
 
   </div>
@@ -75,6 +82,7 @@
 
             </div>
 
+
           </div>
         </div>
 
@@ -86,7 +94,7 @@
             <header class="col-header">
               <h3 class="m0">Tier 1</h3>
             </header>
-            <div class="col-content tier" id="tier1">
+            <div class="col-content tier" id="tier1" data-tier="1">
               
             </div>
           </div>
@@ -96,7 +104,7 @@
             <header class="col-header">
               <h3 class="m0">Tier 2</h3>
             </header>
-            <div class="col-content tier" id="tier2">
+            <div class="col-content tier" id="tier2" data-tier="2">
               
             </div>
           </div>
@@ -105,7 +113,7 @@
             <header class="col-header">
               <h3 class="m0">Tier 3</h3>
             </header>
-            <div class="col-content tier" id="tier3">
+            <div class="col-content tier" id="tier3" data-tier="3">
               
             </div>
           </div>
@@ -114,7 +122,7 @@
             <header class="col-header">
               <h3 class="m0">Tier 4</h3>
             </header>
-            <div class="col-content tier" id="tier4">
+            <div class="col-content tier" id="tier4" data-tier="4">
               
             </div>
           </div>
@@ -123,7 +131,7 @@
             <header class="col-header">
               <h3 class="m0">Tier 5</h3>
             </header>
-            <div class="col-content tier" id="tier5">
+            <div class="col-content tier" id="tier5" data-tier="5">
               
             </div>
           </div>

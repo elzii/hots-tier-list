@@ -13,12 +13,16 @@ body {
   margin-top: 90px;
 }
 
+#nav--actions {
+  padding: 8px 15px 0 0;
+}
+
 
 /**
  * Views / Router
  */
 .view {
-  display: none;
+  /*display: none;*/
 }
 
 
@@ -108,7 +112,7 @@ body {
   height: 65px;
   background-color: #e1e1e1;
   border: 1px solid #333;
-  margin:3px;
+  margin:2px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }

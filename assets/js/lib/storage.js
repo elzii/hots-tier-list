@@ -59,6 +59,12 @@ var LSTORE = (function () {
     return !!localStorage[key] && !!localStorage[key].length;
   }
 
+  storage.remove = function(key) {
+    if ( storage.hasData(key) ) {
+      localStorage.removeItem(key)
+    }
+  }
+
   storage.checkSupport = function() {
     try {
       return 'localStorage' in window && window['localStorage'] !== null;

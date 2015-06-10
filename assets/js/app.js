@@ -7,7 +7,7 @@ var APP = (function ($) {
    * tvdb
    */
   var app     = {}
-  var storage = window.LSTORE;
+  var Storage = window.LSTORE;
 
   /**
    * Module Properties
@@ -35,7 +35,7 @@ var APP = (function ($) {
     // Config
     config : {
       environment : window.location.href.match(/(localhost)/g) ? 'development' : 'production',
-      debug : window.location.href.match(/(localhost)/g) ? true : false,
+      debug : window.location.href.match(/(localhost|.dev)/g) ? true : false,
     },
 
 
@@ -63,6 +63,23 @@ var APP = (function ($) {
       js : rootLocation() + 'assets/js/',
       css : rootLocation() + 'assets/css/',
       images : rootLocation() + 'assets/images/',
+    },
+
+
+    console : {
+      color : {
+        'error'     : '#da1a1a',
+        'event'     : '#3d8627',
+        'function'  : '#3db330',
+        'callback'  : '#6c6c6c',
+        'object'    : '#ac07db',
+        'animation' : '#c3028f',
+        'control'   : '#d2a946',
+        'plugin'    : '#e734d0',
+        'waypoint'  : '#4e77c1',
+        'hash'      : '#ad74ed',
+        'number'    : '#1c1c1c',
+      }
     },
 
   };
@@ -198,12 +215,38 @@ var APP = (function ($) {
       'zeratul'
     ],
 
-    init: function() {
+    init: function() { 
+
+      this.events()
 
       this.renderHeroAvatars()
       this.renderHeroCount()
+      this.readSavedHeroTiers()
     },
 
+    events: function() {
+
+      var _this = app.heroes
+
+      // Save
+      $(document).on('click', '#save', function (event) {
+        event.preventDefault()
+        _this.getCurrentHeroTiers()
+      })
+
+      // Clear
+      $(document).on('click', '#delete', function (event) {
+        event.preventDefault()
+        _this.clearSavedHeroTierData()
+      })
+
+    },
+
+
+    /**
+     * Render Hero Avatars
+     * Loop through hero and render their avatars
+     */
     renderHeroAvatars: function() {
 
       var _this     = app.heroes,
@@ -212,7 +255,7 @@ var APP = (function ($) {
       _this.names.forEach(function (hero, i) {
         
         app.$el.heroes.append('\
-          <div class="hero" style="background-image:url(assets/images/avatars/'+hero+'.png)"> \
+          <div class="hero simptip-position-top" style="background-image:url(assets/images/avatars/'+hero+'.png)" data-name="'+hero+'" data-tooltip="'+hero+'"> \
             <div class="hero-inner"></div> \
           </div> \
         ')
@@ -221,11 +264,88 @@ var APP = (function ($) {
       
     },
 
+    /**
+     * Render Hero Count
+     */
     renderHeroCount: function() {
 
       var _this = app.heroes;
 
       app.$el.hero_count.html( _this.names.length )
+    },
+
+    /**
+     * Get Current Hero Tiers
+     * Check where all heros are current placed 
+     */
+    getCurrentHeroTiers: function() {
+
+      var tiers = {
+        '1' : [],
+        '2' : [],
+        '3' : [],
+        '4' : [],
+        '5' : [],
+      }
+
+      // Loop each hero and save current tier position
+      $('.hero').each(function (i, item) {
+
+        var hero = $(item).data('name'),
+            tier = $(item).parent().data('tier')
+
+        if ( tier !== undefined ) {
+          tiers[tier].push(hero)
+        }
+      })
+
+      if ( app.config.debug ) console.log('%cFUNCTION', 'color:'+app.console.color['function'], '- ' + 'getCurrentHeroTiers ' + 'saved current tier locations to local storage' )
+      if ( app.config.debug ) console.log('Tiers: ', tiers)
+      if ( app.config.debug ) console.log('Base64 Tier Hash: ', btoa(JSON.stringify(tiers)))
+
+      // Save to LS
+      Storage.set( 'tiers', tiers )
+    },
+
+
+    /**
+     * Read Saved Hero Tiers
+     * @return {[type]} [description]
+     */
+    readSavedHeroTiers: function() {
+
+      if ( Storage.get('tiers') ) {
+
+        console.log()
+        
+        var data = Storage.get('tiers')
+
+        $.each(data, function (tier, heroes) {
+          
+          heroes.forEach(function (hero) {
+            
+            // Find hero in left column
+            var $hero = $('.hero[data-name="'+hero+'"]'),
+                $tier = $('.tier[data-tier="'+tier+'"]')
+
+            $hero.appendTo( $tier )
+
+          })
+        })
+      }
+    },
+
+    clearSavedHeroTierData: function() {
+
+      Storage.remove('tiers')
+
+      // Move all back to left column
+      var $heros = $('.tier').find('.hero')
+
+      $heros.each(function (i, hero) {
+
+        $(hero).appendTo( app.$el.heroes )
+      })
     }
 
   }
@@ -281,7 +401,7 @@ var APP = (function ($) {
       // Check routie dependency
       if ( !window.routie || window.routie === undefined ) return false;
       
-      this.routes()
+      // this.routes()
 
     },
 
@@ -303,15 +423,15 @@ var APP = (function ($) {
          * GET /
          */
         '': function() {
-          routie('#home')
+          routie('#tierlist')
         },
 
         /**
          * GET /#home
          */
-        'home': function() {
+        'tierlist': function() {
           _this.showView( app.$el.views.index )
-          _this.setActiveNavItem( 'home' )
+          _this.setActiveNavItem( 'tierlist' )
         },
         
 
