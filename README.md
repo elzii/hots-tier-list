@@ -7,3 +7,8 @@ Simple Drag and drop tier list maker.
 
 * Dragula (JS)
 * Bootstrap (CSS)
+
+
+### Screenshot
+
+![Screenshot](http://i.imgur.com/hYY0DXX.png)
