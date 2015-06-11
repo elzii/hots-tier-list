@@ -50,12 +50,23 @@ var APP = (function ($) {
       },
 
       heroes : $('#heroes'),
-      hero_count : $('#hero-count'),
+      heroes_wrap : $('.heroes-wrap'),
+      hero_filter : $('#hero-filter'),
+
+      tiers : $('#tiers'),
+
+
+      inputs : {
+        short_url : $('#input--short_url')
+      },
 
       views : {
         index : $('#view--index'),
       },
 
+      modals : {
+        urlshortener : $('#modal--urlshortener')
+      },
     },
 
 
@@ -100,8 +111,6 @@ var APP = (function ($) {
     this.forms.init()
     
     this.heroes.init()
-
-    
   }
 
 
@@ -120,24 +129,6 @@ var APP = (function ($) {
     // Dragula
     if ( window.dragula && window.dragula !== undefined ) {
       if ( app.config.debug ) console.log('%cPLUGIN:', 'color:#8e2fb1', 'dragula.js')
-
-      var containers = [
-        document.getElementById('heroes'),
-        document.getElementById('tier1'),
-        document.getElementById('tier2'),
-        document.getElementById('tier3'),
-        document.getElementById('tier4'),
-        document.getElementById('tier5'),
-      ]
-
-      dragula( containers, {})
-        .on('drag', function (el) {
-          console.log( el )
-        })
-        .on('drop', function (el) {
-          console.log( el )
-        })
-     
     }
 
     // Sticky
@@ -146,6 +137,11 @@ var APP = (function ($) {
       $('.sticky').sticky({
         topSpacing: 60
       })
+    }
+
+    // Fast Live Filter
+    if ( $.fn.fastLiveFilter) {
+      if ( app.config.debug ) console.log('%cPLUGIN:', 'color:#8e2fb1', 'jquery.fastLiveFilter.js')
     }
 
   }
@@ -215,13 +211,31 @@ var APP = (function ($) {
       'zeratul'
     ],
 
+    containers : [
+      __('heroes'),
+      __('tier1'),
+      __('tier2'),
+      __('tier3'),
+      __('tier4'),
+      __('tier5'),
+    ],
+
     init: function() { 
 
       this.events()
 
       this.renderHeroAvatars()
-      this.renderHeroCount()
-      this.readSavedHeroTiers()
+      this.readSavedHeroTiers(function() {
+
+        // Live Filter
+        app.$el.hero_filter.fastLiveFilter('#heroes', {
+          callback: function(total) {
+            app.$el.hero_filter.fastLiveFilter('#heroes')
+          }
+        })
+
+      })
+      this.renderTierHeroCounts()
     },
 
     events: function() {
@@ -231,14 +245,58 @@ var APP = (function ($) {
       // Save
       $(document).on('click', '#save', function (event) {
         event.preventDefault()
-        _this.getCurrentHeroTiers()
+        var data = _this.getCurrentHeroTiers()
+        _this.saveCurrentHeroTiers(data)
       })
 
       // Clear
-      $(document).on('click', '#delete', function (event) {
+      $(document).on('click', '#reset', function (event) {
         event.preventDefault()
         _this.clearSavedHeroTierData()
+        _this.showHeroesPane()
       })
+
+      // Export
+      $(document).on('click', '#export', function (event) {
+        event.preventDefault()
+
+        var tiers     = _this.getCurrentHeroTiers(),
+            save_url  = rootLocationRemoveQuery() + '?import=' + _this.encodeTierList(tiers)
+
+        console.log( 'ROOT LOCATION', rootLocation() )
+
+        if ( app.config.debug ) console.log('%cEVENT', 'color:'+app.console.color['event'], '- ' + 'click #export ', save_url )
+
+        app.urlShortener.create( save_url, function (data) {
+
+          // Get short URL
+          var short_url = data.shorturl;
+
+          // Set input value
+          app.$el.inputs.short_url.val( short_url )
+
+          // Show modal
+          app.$el.modals.urlshortener.modal('show')
+
+          // Select the URL input text
+          app.$el.inputs.short_url[0]
+            .setSelectionRange(0, 9999)
+
+          if ( app.config.debug ) console.log('%cCALLBACK', 'color:'+app.console.color['callback'], '- ' + 'app.urlShortener.create() ', data )
+
+        })
+
+      })
+
+      // Dragula
+      dragula( this.containers, {})
+        .on('drag', function (el) {
+          
+        })
+        .on('drop', function (el) {
+          // Recount
+          _this.renderTierHeroCounts()
+        })
 
     },
 
@@ -247,7 +305,7 @@ var APP = (function ($) {
      * Render Hero Avatars
      * Loop through hero and render their avatars
      */
-    renderHeroAvatars: function() {
+    renderHeroAvatars: function(callback) {
 
       var _this     = app.heroes,
           extension = '.png';
@@ -256,27 +314,19 @@ var APP = (function ($) {
         
         app.$el.heroes.append('\
           <div class="hero simptip-position-top" style="background-image:url(assets/images/avatars/'+hero+'.png)" data-name="'+hero+'" data-tooltip="'+hero+'"> \
-            <div class="hero-inner"></div> \
+            <div class="hero-meta">'+hero+'</div> \
           </div> \
         ')
-
       })
       
     },
 
-    /**
-     * Render Hero Count
-     */
-    renderHeroCount: function() {
-
-      var _this = app.heroes;
-
-      app.$el.hero_count.html( _this.names.length )
-    },
 
     /**
      * Get Current Hero Tiers
      * Check where all heros are current placed 
+     *
+     * @return {Object} tiers
      */
     getCurrentHeroTiers: function() {
 
@@ -301,24 +351,31 @@ var APP = (function ($) {
 
       if ( app.config.debug ) console.log('%cFUNCTION', 'color:'+app.console.color['function'], '- ' + 'getCurrentHeroTiers ' + 'saved current tier locations to local storage' )
       if ( app.config.debug ) console.log('Tiers: ', tiers)
-      if ( app.config.debug ) console.log('Base64 Tier Hash: ', btoa(JSON.stringify(tiers)))
 
+      return tiers;
+    },
+
+    /**
+     * Save Current Hero Tiers
+     * 
+     * @param  {Object} data 
+     */
+    saveCurrentHeroTiers: function(data) {
       // Save to LS
-      Storage.set( 'tiers', tiers )
+      Storage.set( 'tiers', data )
     },
 
 
     /**
      * Read Saved Hero Tiers
-     * @return {[type]} [description]
      */
-    readSavedHeroTiers: function() {
+    readSavedHeroTiers: function(callback) {
 
       if ( Storage.get('tiers') ) {
 
-        console.log()
-        
         var data = Storage.get('tiers')
+
+        if ( app.config.debug ) console.log('%cFUNCTION', 'color:'+app.console.color['function'], '- ' + 'readSavedHeroTiers ' + 'reading saved tier data from local storage', data )
 
         $.each(data, function (tier, heroes) {
           
@@ -332,9 +389,19 @@ var APP = (function ($) {
 
           })
         })
+
+        callback()
+      } else {
+        callback()
       }
     },
 
+
+
+    /**
+     * Clear Saved Hero Tier Data
+     * Remove local storage item
+     */
     clearSavedHeroTierData: function() {
 
       Storage.remove('tiers')
@@ -346,7 +413,133 @@ var APP = (function ($) {
 
         $(hero).appendTo( app.$el.heroes )
       })
-    }
+    },
+
+    /**
+     * Get Tier Hero Counts
+     * 
+     * @return {Object} hero counts
+     */
+    getTierHeroCounts: function() {
+
+      var unsorted = app.$el.heroes.find('.hero').length,
+          sorted   = {};
+
+      $('.tier').each(function (i, tier) {
+        sorted[i+1] = $(tier).children().length
+      })
+
+      return {
+        'unsorted': unsorted,
+        'sorted': sorted
+      }
+    },
+
+    /**
+     * Render Tier Hero Counts
+     */
+    renderTierHeroCounts: function() {
+
+      var counts = this.getTierHeroCounts()
+
+      // Unsorted
+      app.$el.heroes_wrap.find('.hero-count').html( counts.unsorted )
+
+      if ( counts.unsorted == 0 ) {
+        this.hideHeroesPane()
+      } else {
+        this.showHeroesPane()
+      }
+
+      // Sorted
+      $.each( counts.sorted, function (tier, count) {
+        $('.tier[data-tier="'+tier+'"]').parent().find('.hero-count').html( count )
+      })
+
+    },
+
+    /**
+     * Hide Heroes Pane
+     */
+    hideHeroesPane: function() {
+      app.$el.heroes.parent().parent().hide()
+      app.$el.tiers
+        .removeClass('col-sm-6')
+        .addClass('col-sm-12')
+    },
+
+    /**
+     * Show Heroes Pane
+     */
+    showHeroesPane: function() {
+      app.$el.heroes.parent().parent().show()
+      app.$el.tiers
+        .removeClass('col-sm-12')
+        .addClass('col-sm-6')
+    },
+
+    /**
+     * Encode Tier List
+     * Encode the LS data/json to base64 string
+     * @param  {Object} data 
+     * @return {String} base64
+     */
+    encodeTierList: function(data) {
+
+      var json   = JSON.stringify(data),
+          base64 = btoa( json )
+
+      if ( app.config.debug ) console.log('Base64 Tier Hash: ',  base64 )
+
+      return base64;
+
+    },
+
+    /**
+     * Decode Query String
+     * 
+     * @param  {Object} query 
+     */
+    decodeQueryString: function(query) {
+
+      if ( app.config.debug ) console.log('decodeQueryString', query)
+
+      var json = atob(query.import),
+          json = JSON.parse(json)
+
+      if ( typeof json === 'object' ) {
+        // Read and render on page
+        this.readDecodedHeroTiers(json)
+      } else {
+        console.log('Invalid JSON parsed from Base64 string')
+      }
+      
+    },
+
+    /**
+     * Read Decoded Hero Tiers
+     * Similar to readSavedHeroTiers but doesnt call from LS
+     * 
+     * @param  {Object} tiers 
+     */
+    readDecodedHeroTiers: function(tiers) {
+
+      if ( app.config.debug ) console.log('readDecodedHeroTiers', tiers)
+
+      $.each(tiers, function (tier, heroes) {
+        
+        heroes.forEach(function (hero) {
+          
+          // Find hero in left column
+          var $hero = $('.hero[data-name="'+hero+'"]'),
+              $tier = $('.tier[data-tier="'+tier+'"]')
+
+          $hero.appendTo( $tier )
+
+        })
+      })
+
+    },
 
   }
 
@@ -385,96 +578,59 @@ var APP = (function ($) {
   }
 
 
-
   /**
    * Routing
-   *
-   * @depencies routie.js
    */
   app.routing = {
 
-    /**
-     * Initialize
-     */
     init: function() {
 
-      // Check routie dependency
-      if ( !window.routie || window.routie === undefined ) return false;
+      if ( this.hasQueryString() ) {
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+          app.heroes.decodeQueryString( QueryString() )
+        })
+
+      }
+    },
+
+    hasQueryString: function() {
+
+      if ( !$.isEmptyObject(QueryString()) ) {
+        return true;
+      } else {
+        return false;
+      }
+
+    },
+
+  }
+
+
+  /**
+   * URL Shortener
+   */
+  app.urlShortener = {
+
+    url : 'http://is.gd/create.php?format=simple&url=',
+
+    create: function(save_url, callback) {
+      $.ajax({
+        url: 'http://is.gd/create.php?format=simple&url=' + save_url,
+        type: 'GET',
+        dataType: 'json',
+        data : {
+          format: 'json'
+        }
+      })
+      .done(function (data) {
+        callback(data)
+      })
+      .fail(function (data) {
+        console.log('urlShortener error: ', data )
+      })
       
-      // this.routes()
-
-    },
-
-    /**
-     * Routes
-     *
-     * /
-     * #feed/
-     * #feed/:encodeduri
-     */
-    routes : function() {
-
-      var _this = app.routing;
-
-
-      routie({
-
-        /**
-         * GET /
-         */
-        '': function() {
-          routie('#tierlist')
-        },
-
-        /**
-         * GET /#home
-         */
-        'tierlist': function() {
-          _this.showView( app.$el.views.index )
-          _this.setActiveNavItem( 'tierlist' )
-        },
-        
-
-      })
-
-    },
-
-    /**
-     * Show View
-     */
-    showView : function($view) {
-
-      $.each( app.$el.views, function (key, view) {
-        view.hide()
-      })
-
-      // Show current view
-      $view.show()
-
-      // Hide loadoer (redundancy)
-      app.loader.hide()
-
-      if ( app.config.debug ) console.log('%cROUTER:', 'color:#e65ad7', $view.selector )
-    },
-
-
-    /**
-     * Set Active Nav Item
-     */
-    setActiveNavItem: function(hash) {
-
-      var _this = app.router,
-          hash  = hash || '',
-          $nav  = app.$el.nav.main;
-
-      var lis = $nav.find('li'),
-          li  = $nav.find('a[href="#'+hash+'"]').parent()
-
-      lis.removeClass('active')
-      li.addClass('active')
-
     }
-
   }
 
 
@@ -562,6 +718,14 @@ var APP = (function ($) {
     } else {
       return href.replace('#', '')
     }
+  }
+
+  function rootLocationRemoveQuery() {
+
+    var href = window.location.href,
+        href = href.substring(0, href.indexOf('?'))
+
+    return href;
 
   }
 
@@ -580,11 +744,29 @@ var APP = (function ($) {
     return size;
   };
 
+  function __(id) {
+    return document.getElementById(id)
+  }
 
 
 
 
 
+  function QueryString() {
+    var params = {};
+
+    if (location.search) {
+        var parts = location.search.substring(1).split('&');
+
+        for (var i = 0; i < parts.length; i++) {
+            var nv = parts[i].split('=');
+            if (!nv[0]) continue;
+            params[nv[0]] = nv[1] || true;
+        }
+    }
+
+    return params;
+  }
 
 
 

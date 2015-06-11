@@ -1,0 +1,101 @@
+/**
+ * Routing
+ *
+ * @depencies routie.js
+ */
+app.routing = {
+
+  /**
+   * Initialize
+   */
+  init: function() {
+
+    // Check routie dependency
+    if ( !window.routie || window.routie === undefined ) return false;
+    
+    // this.routes()
+
+  },
+
+  /**
+   * Routes
+   *
+   * /
+   * #feed/
+   * #feed/:encodeduri
+   */
+  routes : function() {
+
+    var _this = app.routing;
+
+
+    routie({
+
+      /**
+       * GET /
+       */
+      '': function() {
+        routie('#tierlist')
+      },
+
+      /**
+       * GET /#home
+       */
+      'tierlist': function() {
+        _this.showView( app.$el.views.index )
+        _this.setActiveNavItem( 'tierlist' )
+      },
+
+      /**
+       * GET /#import/:id
+       */
+      'import/:id' : function(id) {
+        
+        var id = id ? id : 'dW5kZWZpbmVk';
+
+        app.heroes.decodeURLHash( id )
+
+      },
+      
+
+    })
+
+  },
+
+  /**
+   * Show View
+   */
+  showView : function($view) {
+
+    $.each( app.$el.views, function (key, view) {
+      view.hide()
+    })
+
+    // Show current view
+    $view.show()
+
+    // Hide loadoer (redundancy)
+    app.loader.hide()
+
+    if ( app.config.debug ) console.log('%cROUTER:', 'color:#e65ad7', $view.selector )
+  },
+
+
+  /**
+   * Set Active Nav Item
+   */
+  setActiveNavItem: function(hash) {
+
+    var _this = app.router,
+        hash  = hash || '',
+        $nav  = app.$el.nav.main;
+
+    var lis = $nav.find('li'),
+        li  = $nav.find('a[href="#'+hash+'"]').parent()
+
+    lis.removeClass('active')
+    li.addClass('active')
+
+  }
+
+}

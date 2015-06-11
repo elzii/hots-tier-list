@@ -28,7 +28,7 @@
 <body>
   
 
-<div id="shows__header" class="shows__header navbar navbar-default navbar-fixed-top">
+<div id="header" class="header navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="/">
@@ -36,7 +36,6 @@
         <span>HotS Tier List Maker</span>
       </a>
     </div>
-
 
     <div id="nav--main" class="nav navbar-nav" style="display:none">
 
@@ -47,7 +46,8 @@
     <div id="nav--actions" class="nav navbar-nav navbar-right">
       
       <button id="save" class="btn btn-success">Save</button>
-      <button id="delete" class="btn btn-danger">Reset</button>
+      <button id="reset" class="btn btn-danger">Reset</button>
+      <button id="export" class="btn btn-primary">Link</button>
     </div>
 
   </div>
@@ -62,19 +62,23 @@
 </div>
 
 <div id="wrap">
+
   
   <!-- GET / -->
   <div id="view--index" class="view">
     <div class="container">
       <div class="row row-padded">
         
+        <div id="modal--urlsortener" class="modal">
+          Test
+        </div>
 
 
         <div class="col-sm-6">
-          <div class="col-inner sticky">
+          <div class="col-inner heroes-wrap sticky">
             
             <header class="col-header">
-              <h3 class="m0">Heroes <small id="hero-count" class="small-right"></small></h3>
+              <h3 class="m0">Heroes <input type="text" id="hero-filter" placeholder="Filter by Name"> <small id="hero-count" class="small-right hero-count">0</small></h3>
             </header>
 
             <div id="heroes" class="col-content" class="clearfix">
@@ -88,11 +92,11 @@
 
 
 
-        <div class="col-sm-6">
+        <div id="tiers" class="col-sm-6">
           
-          <div class="col-inner">
+          <div class="col-inner tier-wrap">
             <header class="col-header">
-              <h3 class="m0">Tier 1</h3>
+              <h3 class="m0">Tier 1 <small class="small-right hero-count">0</small></h3>
             </header>
             <div class="col-content tier" id="tier1" data-tier="1">
               
@@ -100,36 +104,36 @@
           </div>
 
 
-          <div class="col-inner">
+          <div class="col-inner tier-wrap">
             <header class="col-header">
-              <h3 class="m0">Tier 2</h3>
+              <h3 class="m0">Tier 2 <small class="small-right hero-count">0</small></h3>
             </header>
             <div class="col-content tier" id="tier2" data-tier="2">
               
             </div>
           </div>
 
-          <div class="col-inner">
+          <div class="col-inner tier-wrap">
             <header class="col-header">
-              <h3 class="m0">Tier 3</h3>
+              <h3 class="m0">Tier 3 <small class="small-right hero-count">0</small></h3>
             </header>
             <div class="col-content tier" id="tier3" data-tier="3">
               
             </div>
           </div>
 
-          <div class="col-inner">
+          <div class="col-inner tier-wrap">
             <header class="col-header">
-              <h3 class="m0">Tier 4</h3>
+              <h3 class="m0">Tier 4 <small class="small-right hero-count">0</small></h3>
             </header>
             <div class="col-content tier" id="tier4" data-tier="4">
               
             </div>
           </div>
 
-          <div class="col-inner">
+          <div class="col-inner tier-wrap">
             <header class="col-header">
-              <h3 class="m0">Tier 5</h3>
+              <h3 class="m0">Tier 5 <small class="small-right hero-count">0</small></h3>
             </header>
             <div class="col-content tier" id="tier5" data-tier="5">
               
@@ -141,22 +145,41 @@
 
       </div><!-- .row -->
 
-
 </div>
 
+<div id="modals">
+  
+  <div id="modal--urlshortener" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Short URL</h4>
+              </div>
+              <div class="modal-body">
+                  <p>Copy the URL to share it</p>
+                  <input id="input--short_url" type="text" class="form-control" placeholder="url">
+              </div>
+          </div>
+      </div>
+  </div>
 
+</div>
 
 
 <!-- Javascript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <script src="assets/js/lib/routie.js"></script>
+<script src="assets/js/lib/bootstrap.min.js"></script>
 <script src="assets/js/lib/dragula.min.js"></script>
 <script src="assets/js/lib/jquery.sticky.js"></script>
+<script src="assets/js/lib/jquery.fastLiveFilter.js"></script>
 <script src="assets/js/lib/storage.js"></script>
 
 <script src="assets/js/app.js"></script>
 
 
 </body>
+</html>
 </html>
