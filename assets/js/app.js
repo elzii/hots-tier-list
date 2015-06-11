@@ -4,7 +4,7 @@ var APP = (function ($) {
    * Modules
    *
    * app
-   * tvdb
+   * storage
    */
   var app     = {}
   var Storage = window.LSTORE;
@@ -14,20 +14,13 @@ var APP = (function ($) {
    *
    * config
    * url
-   * data
    * $el
    * settings
-   * dir
-   * feeds
    * init
    * plugins
    * events
    * forms
    * loader
-   * routing
-   * 
-   * showFeed
-   * showSchedule
    * 
    */
   app = {
@@ -106,9 +99,6 @@ var APP = (function ($) {
    */
   app.init = function () {
 
-    // routing
-    this.routing.init()
-
     // plugin init & general event bindings
     this.plugins()
     this.events()
@@ -123,12 +113,6 @@ var APP = (function ($) {
    * Plugins
    */
   app.plugins = function() {
-
-    // Routie
-    if ( window.routie && window.routie !== undefined ) {
-      if ( app.config.debug ) console.log('%cPLUGIN:', 'color:#8e2fb1', 'routie.js')
-    }
-
 
     // Dragula
     if ( window.dragula && window.dragula !== undefined ) {
@@ -593,37 +577,6 @@ var APP = (function ($) {
   }
 
 
-  /**
-   * Routing
-   */
-  app.routing = {
-
-    init: function() {
-
-      if ( this.hasQueryString() ) {
-
-        var imp = 'import' in QueryString()
-
-        if ( !imp ) return false;
-
-        document.addEventListener('DOMContentLoaded', function (event) {
-          app.heroes.decodeQueryString( QueryString() )
-        })
-
-      }
-    },
-
-    hasQueryString: function() {
-
-      if ( !$.isEmptyObject(QueryString()) ) {
-        return true;
-      } else {
-        return false;
-      }
-
-    },
-
-  }
 
 
   /**
