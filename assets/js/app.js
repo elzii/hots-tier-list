@@ -38,6 +38,8 @@ var APP = (function ($) {
       debug : window.location.href.match(/(localhost|.dev)/g) ? true : false,
     },
 
+    url : window.location.href.match(/(localhost|.dev)/g) ? (window.location.origin + '/') : 'http://elzii.github.io/hots-tier-list/',
+
 
     // Elements
     $el : {
@@ -57,7 +59,8 @@ var APP = (function ($) {
 
 
       inputs : {
-        short_url : $('#input--short_url')
+        short_url : $('#input--short_url'),
+        json_export : $('#input--json-export'),
       },
 
       views : {
@@ -65,7 +68,8 @@ var APP = (function ($) {
       },
 
       modals : {
-        urlshortener : $('#modal--urlshortener')
+        url_shortener : $('#modal--url-shortener'),
+        json_export : $('#modal--json-export'),
       },
     },
 
@@ -256,16 +260,14 @@ var APP = (function ($) {
         _this.showHeroesPane()
       })
 
-      // Export
-      $(document).on('click', '#export', function (event) {
+      // Link
+      $(document).on('click', '#link', function (event) {
         event.preventDefault()
 
         var tiers     = _this.getCurrentHeroTiers(),
-            save_url  = rootLocationRemoveQuery() + '?import=' + _this.encodeTierList(tiers)
+            save_url  = app.url + '?import=' + _this.encodeTierList(tiers)
 
-        console.log( 'ROOT LOCATION', rootLocation() )
-
-        if ( app.config.debug ) console.log('%cEVENT', 'color:'+app.console.color['event'], '- ' + 'click #export ', save_url )
+        if ( app.config.debug ) console.log('%cEVENT', 'color:'+app.console.color['event'], '- ' + 'click #link ', save_url )
 
         app.urlShortener.create( save_url, function (data) {
 
@@ -276,7 +278,7 @@ var APP = (function ($) {
           app.$el.inputs.short_url.val( short_url )
 
           // Show modal
-          app.$el.modals.urlshortener.modal('show')
+          app.$el.modals.url_shortener.modal('show')
 
           // Select the URL input text
           app.$el.inputs.short_url[0]
@@ -287,6 +289,19 @@ var APP = (function ($) {
         })
 
       })
+
+      // Clear
+      $(document).on('click', '#export', function (event) {
+        event.preventDefault()
+        
+        var data = _this.getCurrentHeroTiers(),
+            json = JSON.stringify(data, null, 2)
+
+        app.$el.inputs.json_export.html( syntaxHighlight(json) )
+
+        app.$el.modals.json_export.modal('show')
+      })
+
 
       // Dragula
       dragula( this.containers, {})
@@ -587,6 +602,10 @@ var APP = (function ($) {
 
       if ( this.hasQueryString() ) {
 
+        var imp = 'import' in QueryString()
+
+        if ( !imp ) return false;
+
         document.addEventListener('DOMContentLoaded', function (event) {
           app.heroes.decodeQueryString( QueryString() )
         })
@@ -744,14 +763,53 @@ var APP = (function ($) {
     return size;
   };
 
+  /**
+   * __
+   * Helper method for selecting DOM element by ID
+   * 
+   * @param  {String} id 
+   * @return {HTMLElement} 
+   */
   function __(id) {
     return document.getElementById(id)
   }
 
 
+  /**
+   * Syntax Highlight
+   * 
+   * @param  {String|Object} json 
+   * @return {String} 
+   */
+  function syntaxHighlight(json) {
 
+    if (typeof json != 'string') {
+     json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+    var cls = 'number';
+    if (/^"/.test(match)) {
+      if (/:$/.test(match)) {
+        cls = 'key';
+      } else {
+        cls = 'string';
+      }
+    } else if (/true|false/.test(match)) {
+      cls = 'boolean';
+    } else if (/null/.test(match)) {
+      cls = 'null';
+    }
+    return '<span class="' + cls + '">' + match + '</span>';
+  });
+ }
 
-
+  /**
+   * Query String
+   * Get the query string form the URL
+   *
+   * @returns {Object} params
+   */
   function QueryString() {
     var params = {};
 

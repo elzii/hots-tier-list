@@ -136,9 +136,25 @@ body {
   height:30px;
 }
 
-#modal--urlshortener .modal-dialog {
+.modal-dialog.modal-dialog--nudge-down, {
   margin-top: 120px;
 }
+
+.input-textarea {
+  width: 100%;
+  min-height: 300px;
+}
+
+
+/**
+ * Syntax Highlighting
+ */
+pre { background: #272822; max-height: 320px; color: white; }
+.string { color: #e6db74; }
+.number { color: #ae81ff; }
+.boolean { color: #8362be; }
+.null { color: magenta; }
+.key { color: #f92772; }
 
 /**
  * Helpers

@@ -47,7 +47,8 @@
       
       <button id="save" class="btn btn-success">Save</button>
       <button id="reset" class="btn btn-danger">Reset</button>
-      <button id="export" class="btn btn-primary">Link</button>
+      <button id="link" class="btn btn-primary">Link</button>
+      <button id="export" class="btn btn-info">JSON Export</button>
     </div>
 
   </div>
@@ -149,19 +150,39 @@
 
 <div id="modals">
   
-  <div id="modal--urlshortener" class="modal fade">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Short URL</h4>
-              </div>
-              <div class="modal-body">
-                  <p>Copy the URL to share it</p>
-                  <input id="input--short_url" type="text" class="form-control" placeholder="url">
-              </div>
-          </div>
+  <!-- 
+    - Modal - URL Shortener
+    -->
+  <div id="modal--url-shortener" class="modal fade">
+    <div class="modal-dialog modal-dialog--nudge-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Short URL</h4>
+        </div>
+        <div class="modal-body">
+          <p>Copy the URL to share it</p>
+          <input id="input--short_url" type="text" class="form-control" placeholder="url">
+        </div>
       </div>
+    </div>
+  </div>
+  
+  <!-- 
+    - Modal - JSON Export
+    -->
+  <div id="modal--json-export" class="modal fade">
+    <div class="modal-dialog modal-dialog--nudge-down">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">JSON Export</h4>
+        </div>
+        <div class="modal-body">
+          <pre id="input--json-export" class="input-textarea" placeholder="url"></pre>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
