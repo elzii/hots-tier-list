@@ -28,7 +28,8 @@ var APP = (function ($) {
     // Config
     config : {
       environment : window.location.href.match(/(localhost)/g) ? 'development' : 'production',
-      debug : window.location.href.match(/(localhost|.dev)/g) ? true : false,
+      // debug : window.location.href.match(/(localhost|.dev)/g) ? true : false,
+      debug : true,
     },
 
     url : window.location.href.match(/(localhost|.dev)/g) ? (window.location.origin + '/') : 'http://elzii.github.io/hots-tier-list/',
@@ -213,6 +214,12 @@ var APP = (function ($) {
       this.events()
 
       this.renderHeroAvatars()
+
+      // Check if query string
+      if ( !$.isEmptyObject( QueryString() ) ) {
+        this.decodeQueryString( QueryString() )
+      }
+
       this.readSavedHeroTiers(function() {
 
         // Live Filter
@@ -503,12 +510,14 @@ var APP = (function ($) {
 
       if ( app.config.debug ) console.log('decodeQueryString', query)
 
-      var json = atob(query.import),
+      var json = atob(query['import']),
           json = JSON.parse(json)
 
       if ( typeof json === 'object' ) {
         // Read and render on page
         this.readDecodedHeroTiers(json)
+
+        if ( app.config.debug ) console.log('decodeQueryString JSON ', json)
       } else {
         console.log('Invalid JSON parsed from Base64 string')
       }
@@ -603,6 +612,68 @@ var APP = (function ($) {
       })
       
     }
+  }
+
+
+  /**
+   * Hash Parser
+   */
+  app.hasher = {
+
+    /**
+     * Read
+     * @return {Object} params
+     */
+    read: function() {
+
+      var _this  = app.hasher,
+          params = {};
+
+      var e,
+          a = /\+/g,  // Regex for replacing addition symbol with a space
+          r = /([^&;=]+)=?([^&;]*)/g,
+          d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+          q = window.location.hash.substring(1);
+
+      while (e = r.exec(q))
+         params[d(e[1])] = d(e[2]);
+
+      if ( !$.isEmptyObject(params) )  {
+        console.log('%cHASH', 'color:'+app.console.color.hash, params )
+        _this.parse(params)
+        return params;
+      } else {
+        return false;
+      }
+    },
+
+    /**
+     * Parse
+     * 
+     * @param  {Object} hash 
+     */
+    parse: function(hash) {
+
+      // Modals
+      if ( hash.hasOwnProperty('modal') ) {
+        app.modals.modalShow( '#'+hash.modal )
+      }
+
+      // Admin Settings
+      if ( hash.hasOwnProperty('settings') ) {
+        var setting = hash.settings
+
+        if( document.getElementById('admin-settings') ) {
+          var $item = app.$el.menu.settings.find('.menu-settings__setting--'+setting);
+          $item.click()
+        }
+      }
+
+    }
+
+
+
+
   }
 
 
@@ -785,13 +856,23 @@ var APP = (function ($) {
 
 
   /**
-   * DOCUMENT READY
-   * -------------------------------------------------------------------
+   * EVENT: Document Ready
+   * @jquery - $(document).ready(function(){  })
    *
    */
   document.addEventListener('DOMContentLoaded', function (event) {
 
 
+    
+  })
+
+  /**
+   * EVENT: Window Load
+   * @jquery - $(window).load(function(){  })
+   */
+  window.addEventListener('load', function (event) {
+  
+    app.hasher.read()
     
   })
 
