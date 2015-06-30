@@ -190,6 +190,7 @@ var APP = (function ($) {
       'stitches',
       'sylvanas',
       'tassador',
+      'the-butcher',
       'thrall',
       'tychus',
       'tyrael',
