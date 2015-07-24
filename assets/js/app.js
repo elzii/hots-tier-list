@@ -176,6 +176,7 @@ var APP = (function ($) {
       'johanna',
       'kaelthas',
       'kerrigan',
+      'leoric',
       'lili',
       'lostvikings',
       'malfurion',
