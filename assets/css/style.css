@@ -1,20 +1,48 @@
 /**
  * Body / Defaults
  */
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
   background-color: #fff;
+  margin-bottom: 60px;
   /*background-color: #f9f9f9;*/
 }
   body.shows--grid { background-color: #333; }
   body.shows--list { background-color: #fff; }
 
+
+/**
+ * Typography
+ */
+h3 { font-size: 21px; }
+
+
 #wrap {
-  position: relative;
+  /*position: relative;*/
   margin-top: 90px;
+  margin-bottom: 90px;
 }
 
 #nav--actions {
   padding: 8px 15px 0 0;
+}
+
+.navbar-brand {
+  padding: 10px 15px;
+  font-size: 18px;
+}
+.navbar-brand span {
+  display:inline-block;
+  position: relative;
+  margin-left: 5px;
+  top: 1px;
+}
+.navbar-brand__logo {
+  max-height:100%;
+  width: auto;
 }
 
 
@@ -23,6 +51,7 @@ body {
  */
 .view {
   /*display: none;*/
+  padding: 75px 0 0 0;
 }
 
 
@@ -68,6 +97,24 @@ body {
   font-size: 24px;
   font-weight: 500;
 }
+  .col-subheader {
+    background-color:#f9f9f9;
+    /*padding:10px 15px 10px 14px;*/
+    border-bottom: 1px solid #eee;
+    /*font-size: 24px;*/
+    font-weight: 500;
+  }
+
+    .col-subheader__left {
+      /*float: left;*/
+    }
+    .col-subheader__right {
+      float: right;
+      /*padding: 10px 15px;*/
+    }
+
+
+
 .col-content {
   padding: 15px;
   min-height: 80px;
@@ -103,6 +150,9 @@ body {
 }
 
 
+/**
+ * Hero
+ */
 .hero {
   position: relative;
   display:inline-block;
@@ -125,17 +175,37 @@ body {
   }
 
 
+/**
+ * Hero Filter
+ */
 #hero-filter {
   position: relative;
-  top: -2px;
-  margin-left: 5px;
+  /*top: -2px;*/
+  /*margin-left: 5px;*/
   width: 200px;
   font-size: 14px;
-  padding: 6px;
+  padding: 6px 15px;
   font-weight: normal;
-  height:30px;
+  height:40px;
+  border:none;
+  border-right: 1px solid #eee;
 }
+  
+  #hero-filter.input--full {
+    display:block;
+    width: 100%;
+    border:none;
+    background-color:#fdfdfd;
+  }
+  #hero-filter:focus {
+    outline: none;
+    box-shadow:0px;
+    background-color: rgba(203, 226, 250, 0.08);
+  }
 
+/**
+ * Modals
+ */
 .modal-dialog.modal-dialog--nudge-down, {
   margin-top: 120px;
 }
@@ -188,8 +258,40 @@ pre { background: #272822; max-height: 320px; color: white; }
 
 
 /**
+ * Footer
+ */
+.sticky-footer {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  /*background-color: #f5f5f5;*/
+  background-color: #353535;
+  border-top: 1px solid #e7e7e7;
+}
+
+/**
  * Custom Attributes
  */
 *[debug] {
   display:none !important;
+}
+
+
+/**
+ * Buttons
+ */
+.btn.btn--full {
+  width: 100%;
+  border-radius:0px;
+  box-shadow:none;
+}
+
+
+/**
+ * Helpers
+ */
+.fa-lg {
+  font-size: 1.5em;
 }

@@ -32,23 +32,29 @@
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="/">
-        <i class="fa fa-list-ol"></i>
+        <!-- <i class="fa fa-list-ol"></i> -->
+        <img class="navbar-brand__logo" src="assets/images/favicon.png" alt="">
         <span>HotS Tier List Maker</span>
       </a>
-    </div>
 
-    <div id="nav--main" class="nav navbar-nav" style="display:none">
-
-      <li><a href="#tierlist">Home</a></li>
 
     </div>
 
-    <div id="nav--actions" class="nav navbar-nav navbar-right">
-      
-      <button id="save" class="btn btn-success">Save</button>
-      <button id="reset" class="btn btn-danger">Reset</button>
-      <button id="link" class="btn btn-primary">Link</button>
-      <button id="export" class="btn btn-info">JSON Export</button>
+    <div id="nav--main" class="nav navbar-nav navbar-right">
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" type="button" id="dropdown" data-toggle="dropdown">
+          <i class="fa fa-lg fa-bars"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Home</a></li>
+          <li><a id="export" href="#">JSON Export</a></li>
+
+          <!-- <li role="separator" class="divider"></li> -->
+          
+        </ul>
+      </li>
+
     </div>
 
   </div>
@@ -62,7 +68,7 @@
   </div>
 </div>
 
-<div id="wrap">
+
 
   
   <!-- GET / -->
@@ -74,7 +80,13 @@
           <div class="col-inner heroes-wrap sticky">
             
             <header class="col-header">
-              <h3 class="m0">Heroes <input type="text" id="hero-filter" placeholder="Filter by Name"> <small id="hero-count" class="small-right hero-count">0</small></h3>
+              <h3 class="m0">Heroes <small id="hero-count" class="small-right hero-count">0</small></h3>
+            </header>
+            <header class="col-subheader clearfix">
+              <div class="col-subheader__left">
+                <input type="text" id="hero-filter" class="input--full" placeholder="Filter by Name"> 
+              </div>
+              <!-- <div class="col-subheader__right"></div> -->
             </header>
 
             <div id="heroes" class="col-content" class="clearfix">
@@ -140,8 +152,21 @@
 
 
       </div><!-- .row -->
+    </div><!-- .container -->
+  </div><!-- .view -->
 
-</div>
+  <footer id="footer" class="footer sticky-footer">
+    <div class="container">
+      <div id="nav--actions" class="nav navbar-nav navbar-right">
+        <button id="save" class="btn btn-success">Save</button>
+        <button id="reset" class="btn btn-danger">Reset</button>
+        <button id="link" class="btn btn-primary">Link</button>
+      </div>
+    </div>
+
+  </footer>
+
+
 
 <div id="modals">
   

@@ -163,6 +163,7 @@ var APP = (function ($) {
     names : [
       'abathur',
       'anubarak',
+      'artanis',
       'arthas',
       'azmodan',
       'brightwing',
@@ -176,9 +177,11 @@ var APP = (function ($) {
       'johanna',
       'kaelthas',
       'kerrigan',
+      'kharazim',
       'leoric',
       'lili',
       'lostvikings',
+      'lt-morales',
       'malfurion',
       'muradin',
       'murky',
@@ -186,6 +189,7 @@ var APP = (function ($) {
       'nova',
       'raynor',
       'rehgar',
+      'rexxar',
       'sgthammer',
       'sonya',
       'stitches',
@@ -227,7 +231,7 @@ var APP = (function ($) {
         // Live Filter
         app.$el.hero_filter.fastLiveFilter('#heroes', {
           callback: function(total) {
-            app.$el.hero_filter.fastLiveFilter('#heroes')
+            // app.$el.hero_filter.fastLiveFilter('#heroes')
           }
         })
 
