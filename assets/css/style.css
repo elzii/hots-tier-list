@@ -295,3 +295,39 @@ pre { background: #272822; max-height: 320px; color: white; }
 .fa-lg {
   font-size: 1.5em;
 }
+
+
+
+/**
+ * IP Count
+ */
+#ip-counts {
+  padding-top: 10px;
+}
+  .ip-count {
+    cursor: pointer;
+    display:inline-block;
+    padding:3px 8px 3px 6px;
+    background: #3A3A3A;
+    border: 1px solid #464646;
+    margin-right:5px;
+    border-radius: 3px;
+    text-align: left;
+  }
+  .ip-count:hover {
+    background: #444242;
+  }
+    .ip-count img {
+      display: inline-block;
+      width:24px;
+      height:24px;
+    }
+    .ip-count span {
+      /*text-align:right;*/
+      position: relative;
+      top:1px;
+      padding-left:2px;
+      display:inline-block;
+      font-size:15px;
+      color:#8EC2D6;
+    }

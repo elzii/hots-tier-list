@@ -84,7 +84,7 @@
             </header>
             <header class="col-subheader clearfix">
               <div class="col-subheader__left">
-                <input type="text" id="hero-filter" class="input--full" placeholder="Filter by Name"> 
+                <input type="text" id="hero-filter" class="input--full" placeholder="Filter by Name or Game"> 
               </div>
               <!-- <div class="col-subheader__right"></div> -->
             </header>
@@ -157,10 +157,38 @@
 
   <footer id="footer" class="footer sticky-footer">
     <div class="container">
-      <div id="nav--actions" class="nav navbar-nav navbar-right">
-        <button id="save" class="btn btn-success">Save</button>
-        <button id="reset" class="btn btn-danger">Reset</button>
-        <button id="link" class="btn btn-primary">Link</button>
+      <div class="row">
+        <div class="col-lg-4">
+          <div id="ip-counts" class="clearfix">
+            <div class="ip-count">
+              <img src="assets/images/ip/warcraft-32x32.png">
+              <span class="ip-count--name" id="ip-count--warcraft"></span>
+            </div>
+            <div class="ip-count">
+              <img src="assets/images/ip/starcraft-32x32.png">
+              <span class="ip-count--name" id="ip-count--starcraft"></span>
+            </div>
+            <div class="ip-count">
+              <img src="assets/images/ip/diablo-32x32.png">
+              <span class="ip-count--name" id="ip-count--diablo"></span>
+            </div>
+            <div class="ip-count">
+              <img src="assets/images/ip/blizzard-32x32.png">
+              <span class="ip-count--name" id="ip-count--blizzard"></span>
+            </div>
+            <div class="ip-count">
+              <img src="assets/images/ip/overwatch-32x32.png">
+              <span class="ip-count--name" id="ip-count--overwatch"></span>
+            </div>
+          </div>  
+        </div>
+        <div class="col-lg-8">
+          <div id="nav--actions" class="nav navbar-nav navbar-right">
+            <button id="save" class="btn btn-success">Save</button>
+            <button id="reset" class="btn btn-danger">Reset</button>
+            <button id="link" class="btn btn-primary">Link</button>
+          </div>
+        </div>
       </div>
     </div>
 

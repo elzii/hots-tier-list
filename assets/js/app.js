@@ -51,6 +51,7 @@ var APP = (function ($) {
 
       tiers : $('#tiers'),
 
+      ip_counts : $('#ip-counts'),
 
       inputs : {
         short_url : $('#input--short_url'),
@@ -160,53 +161,188 @@ var APP = (function ($) {
    */
   app.heroes = {
 
-    names : [
-      'abathur',
-      'anubarak',
-      'artanis',
-      'arthas',
-      'azmodan',
-      'brightwing',
-      'chen',
-      'diablo',
-      'etc',
-      'falstad',
-      'gazlowe',
-      'greymane',
-      'illidan',
-      'jaina',
-      'johanna',
-      'kaelthas',
-      'kerrigan',
-      'kharazim',
-      'leoric',
-      'lili',
-      'lostvikings',
-      'lt-morales',
-      'lunara',
-      'malfurion',
-      'muradin',
-      'murky',
-      'nazeebo',
-      'nova',
-      'raynor',
-      'rehgar',
-      'rexxar',
-      'sgthammer',
-      'sonya',
-      'stitches',
-      'sylvanas',
-      'tassador',
-      'the-butcher',
-      'thrall',
-      'tychus',
-      'tyrael',
-      'tyrande',
-      'uther',
-      'valla',
-      'zagara',
-      'zeratul'
-    ],
+    names : {
+      'abathur': {
+        fullname: 'Abathur',
+        ip: 'StarCraft'
+      },
+      'anubarak': {
+        fullname: 'Anub\'arak',
+        ip: 'WarCraft'
+      },
+      'artanis': {
+        fullname: 'Artanis',
+        ip: 'StarCraft'
+      },
+      'arthas': {
+        fullname: 'Arthas',
+        ip: 'WarCraft'
+      },
+      'azmodan': {
+        fullname: 'Azmodan',
+        ip: 'Diablo'
+      },
+      'brightwing': {
+        fullname: 'Brightwing',
+        ip: 'WarCraft'
+      },
+      'chen': {
+        fullname: 'Chen',
+        ip: 'WarCraft'
+      },
+      'diablo': {
+        fullname: 'Diablo',
+        ip: 'Diablo'
+      },
+      'etc': {
+        fullname: 'E.T.C',
+        ip: 'WarCraft'
+      },
+      'falstad': {
+        fullname: 'Falstad',
+        ip: 'WarCraft'
+      },
+      'gazlowe': {
+        fullname: 'Gazlowe',
+        ip: 'WarCraft'
+      },
+      'greymane': {
+        fullname: 'Greymane',
+        ip: 'WarCraft'
+      },
+      'illidan': {
+        fullname: 'Illidan',
+        ip: 'WarCraft'
+      },
+      'jaina': {
+        fullname: 'Jaina',
+        ip: 'WarCraft'
+      },
+      'johanna': {
+        fullname: 'Johanna',
+        ip: 'Diablo'
+      },
+      'kaelthas': {
+        fullname: 'Kael\'thas',
+        ip: 'WarCraft'
+      },
+      'kerrigan': {
+        fullname: 'Kerrigan',
+        ip: 'StarCraft'
+      },
+      'kharazim': {
+        fullname: 'Kharazim',
+        ip: 'Diablo'
+      },
+      'leoric': {
+        fullname: 'Leoric',
+        ip: 'Diablo'
+      },
+      'lili': {
+        fullname: 'Li Li',
+        ip: 'WarCraft'
+      },
+      'lostvikings': {
+        fullname: 'Lostvikings',
+        ip: 'Blizzard'
+      },
+      'lt-morales': {
+        fullname: 'Lt Morales',
+        ip: 'StarCraft'
+      },
+      'lunara': {
+        fullname: 'Lunara',
+        ip: 'WarCraft'
+      },
+      'malfurion': {
+        fullname: 'Malfurion',
+        ip: 'WarCraft'
+      },
+      'muradin': {
+        fullname: 'Muradin',
+        ip: 'WarCraft'
+      },
+      'murky': {
+        fullname: 'Murky',
+        ip: 'WarCraft'
+      },
+      'nazeebo': {
+        fullname: 'Nazeebo',
+        ip: 'Diablo'
+      },
+      'nova': {
+        fullname: 'Nova',
+        ip: 'StarCraft'
+      },
+      'raynor': {
+        fullname: 'Raynor',
+        ip: 'StarCraft'
+      },
+      'rehgar': {
+        fullname: 'Rehgar',
+        ip: 'WarCraft'
+      },
+      'rexxar': {
+        fullname: 'Rexxar',
+        ip: 'WarCraft'
+      },
+      'sgthammer': {
+        fullname: 'Sgt Hammer',
+        ip: 'WarCraft'
+      },
+      'sonya': {
+        fullname: 'Sonya',
+        ip: 'Diablo'
+      },
+      'stitches': {
+        fullname: 'Stitches',
+        ip: 'WarCraft'
+      },
+      'sylvanas': {
+        fullname: 'Sylvanas',
+        ip: 'WarCraft'
+      },
+      'tassadar': {
+        fullname: 'Tassadar',
+        ip: 'StarCraft'
+      },
+      'the-butcher': {
+        fullname: 'The',
+        ip: 'Diablo'
+      },
+      'thrall': {
+        fullname: 'Thrall',
+        ip: 'WarCraft'
+      },
+      'tychus': {
+        fullname: 'Tychus',
+        ip: 'StarCraft'
+      },
+      'tyrael': {
+        fullname: 'Tyrael',
+        ip: 'Diablo'
+      },
+      'tyrande': {
+        fullname: 'Tyrande',
+        ip: 'WarCraft'
+      },
+      'uther': {
+        fullname: 'Uther',
+        ip: 'WarCraft'
+      },
+      'valla': {
+        fullname: 'Valla',
+        ip: 'Diablo'
+      },
+      'zagara': {
+        fullname: 'Zagara',
+        ip: 'StarCraft'
+      },
+      'zeratul': {
+        fullname: 'Zeratul',
+        ip: 'StarCraft'
+      },
+    },
 
     containers : [
       __('heroes'),
@@ -238,7 +374,9 @@ var APP = (function ($) {
         })
 
       })
+
       this.renderTierHeroCounts()
+      this.renderHeroIPCounts()
     },
 
     events: function() {
@@ -301,6 +439,19 @@ var APP = (function ($) {
         app.$el.modals.json_export.modal('show')
       })
 
+      // Click handler for IP sorting
+      $(document).on('click', '.ip-count', function (event) {
+        event.preventDefault()
+        
+        var $this = $(this),
+            $el   = $this.find('.ip-count--name'),
+            ip    = $el.attr('id').split('--')[1]
+
+        // input text into search
+        app.$el.hero_filter.val(ip)        
+        app.$el.hero_filter.keydown()
+      })
+
 
       // Dragula
       dragula( this.containers, {})
@@ -324,11 +475,20 @@ var APP = (function ($) {
       var _this     = app.heroes,
           extension = '.png';
 
-      _this.names.forEach(function (hero, i) {
+      // _this.names.forEach(function (hero, i) {
+      $.each( _this.names, function (name, hero) {
+
+        var name     = name,
+            fullname = hero.fullname,
+            ip       = hero.ip;
+
         
         app.$el.heroes.append('\
-          <div class="hero simptip-position-top" style="background-image:url(assets/images/avatars/'+hero+'.png)" data-name="'+hero+'" data-tooltip="'+hero+'"> \
-            <div class="hero-meta">'+hero+'</div> \
+          <div class="hero simptip-position-top" style="background-image:url(assets/images/avatars/'+name+'.png)" data-name="'+name+'" data-ip="'+ip+'" data-tooltip="'+fullname+'"> \
+            <div class="hero-meta"> \
+              <span data-hero-name>'+fullname+'</span> \
+              <span data-hero-ip>'+ip+'</span> \
+            </div> \
           </div> \
         ')
       })
@@ -557,7 +717,61 @@ var APP = (function ($) {
 
     },
 
+    /**
+     * Count Heroes By IP
+     * @param  {[type]} heroes [description]
+     * @return {[type]}        [description]
+     */
+    countHeroesByIP: function(heroes) {
+
+      var _this = heroes || app.heroes;
+
+      var ips = {
+        'blizzard' : 0,
+        'diablo' : 0,
+        'overwatch' : 0,
+        'starcraft' : 0,
+        'warcraft' : 0
+      }
+
+      $.each( _this.names, function (name, hero) {
+
+        var ip = hero.ip;
+            ip = ip.toLowerCase()
+
+        ips[ip]++;
+
+      })
+
+      return ips;
+
+    },
+
+    /**
+     * Render Hero IP Counts
+     * @return {[type]} [description]
+     */
+    renderHeroIPCounts: function() {
+      
+      var _this = app.heroes,
+          ips   = _this.countHeroesByIP()
+
+      $.each( ips, function (ip, count) {
+        console.log(ip, count)
+
+        var $el = app.$el.ip_counts.find('#ip-count--'+ip)
+
+        $el.html(count)
+      })
+
+
+    }
+
   }
+
+
+
+
 
 
 
