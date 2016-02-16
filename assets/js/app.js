@@ -242,6 +242,10 @@ var APP = (function ($) {
         fullname: 'Li Li',
         ip: 'WarCraft'
       },
+      'liming': {
+        fullname: 'Li-Ming',
+        ip: 'Diablo'
+      },
       'lostvikings': {
         fullname: 'Lostvikings',
         ip: 'Blizzard'
