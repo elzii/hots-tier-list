@@ -11,4 +11,4 @@ Simple Drag and drop tier list maker.
 
 ### Screenshot
 
-![Screenshot](http://i.imgur.com/hYY0DXX.png)
+![Screenshot](http://i.imgur.com/5g3xmlg.jpg)
