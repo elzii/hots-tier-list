@@ -247,7 +247,7 @@ var APP = (function ($) {
         ip: 'Diablo'
       },
       'lostvikings': {
-        fullname: 'Lostvikings',
+        fullname: 'The Lost Vikings',
         ip: 'Blizzard'
       },
       'lt-morales': {
@@ -311,7 +311,7 @@ var APP = (function ($) {
         ip: 'StarCraft'
       },
       'the-butcher': {
-        fullname: 'The',
+        fullname: 'The Butcher',
         ip: 'Diablo'
       },
       'thrall': {
@@ -336,6 +336,10 @@ var APP = (function ($) {
       },
       'valla': {
         fullname: 'Valla',
+        ip: 'Diablo'
+      },
+      'xul': {
+        fullname: 'Xul',
         ip: 'Diablo'
       },
       'zagara': {
