@@ -190,6 +190,10 @@ var APP = (function ($) {
         fullname: 'Chen',
         ip: 'WarCraft'
       },
+      'cho': {
+        fullname: 'Cho',
+        ip: 'WarCraft'
+      },
       'diablo': {
         fullname: 'Diablo',
         ip: 'Diablo'
@@ -200,6 +204,10 @@ var APP = (function ($) {
       },
       'falstad': {
         fullname: 'Falstad',
+        ip: 'WarCraft'
+      },
+      'Gall': {
+        fullname: 'Gall',
         ip: 'WarCraft'
       },
       'gazlowe': {
