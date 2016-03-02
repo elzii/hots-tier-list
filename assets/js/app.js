@@ -206,7 +206,7 @@ var APP = (function ($) {
         fullname: 'Falstad',
         ip: 'WarCraft'
       },
-      'Gall': {
+      'gall': {
         fullname: 'Gall',
         ip: 'WarCraft'
       },
