@@ -415,6 +415,10 @@ var APP = (function ($) {
         event.preventDefault()
         _this.clearSavedHeroTierData()
         _this.showHeroesPane()
+
+        // clear search filter
+        app.$el.hero_filter.val('')        
+        app.$el.hero_filter.keydown()
       })
 
       // Link
