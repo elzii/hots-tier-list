@@ -330,6 +330,10 @@ var APP = (function ($) {
         fullname: 'Thrall',
         ip: 'WarCraft'
       },
+      'tracer': {
+        fullname: 'Tracer',
+        ip: 'Overwatch'
+      },
       'tychus': {
         fullname: 'Tychus',
         ip: 'StarCraft'
