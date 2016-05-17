@@ -194,6 +194,10 @@ var APP = (function ($) {
         fullname: 'Cho',
         ip: 'WarCraft'
       },
+      'chromie': {
+        fullname: 'Chromie',
+        ip: 'WarCraft'
+      },
       'dehaka': {
         fullname: 'Dehaka',
         ip: 'StarCraft'
