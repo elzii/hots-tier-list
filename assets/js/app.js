@@ -278,6 +278,10 @@ var APP = (function ($) {
         fullname: 'Malfurion',
         ip: 'WarCraft'
       },
+      'medivh': {
+        fullname: 'Medivh',
+        ip: 'WarCraft'
+      },
       'muradin': {
         fullname: 'Muradin',
         ip: 'WarCraft'
