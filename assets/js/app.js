@@ -166,6 +166,10 @@ var APP = (function ($) {
         fullname: 'Abathur',
         ip: 'StarCraft'
       },
+      'alarak': {
+        fullname: 'Alarak',
+        ip: 'StarCraft'
+      },
       'anubarak': {
         fullname: 'Anub\'arak',
         ip: 'WarCraft'
@@ -177,6 +181,10 @@ var APP = (function ($) {
       'arthas': {
         fullname: 'Arthas',
         ip: 'WarCraft'
+      },
+      'auriel': {
+        fullname: 'Auriel',
+        ip: 'Diablo'
       },
       'azmodan': {
         fullname: 'Azmodan',
@@ -224,6 +232,10 @@ var APP = (function ($) {
       },
       'greymane': {
         fullname: 'Greymane',
+        ip: 'WarCraft'
+      },
+      'guldan': {
+        fullname: 'Gul\'dan',
         ip: 'WarCraft'
       },
       'illidan': {
@@ -369,6 +381,10 @@ var APP = (function ($) {
       'zagara': {
         fullname: 'Zagara',
         ip: 'StarCraft'
+      },
+      'zarya': {
+        fullname: 'Zarya',
+        ip: 'Overwatch'
       },
       'zeratul': {
         fullname: 'Zeratul',
